@@ -27,6 +27,8 @@ The original validation set is very small, so a secondary four-class CXR collect
 
 Dataset download instructions and the required folder layout are documented in [`data/README.md`](data/README.md). Raw medical images are not redistributed in this repository.
 
+![Primary dataset distribution](assets/primary_dataset_distribution.png)
+
 ## Methodology
 
 ### Preprocessing and training
@@ -59,6 +61,10 @@ Coordinate Attention was most effective when inserted after the final EfficientN
 
 CA improved accuracy by **1.94 percentage points** and macro F1 by **3.05 percentage points**, while adding approximately **0.15 million parameters**.
 
+![EfficientNet-B1 attention comparison](assets/efficientnet_b1_attention_accuracy.png)
+
+![EfficientNet-B1+CA confusion matrix](assets/efficientnet_b1_ca_confusion_matrix.png)
+
 ### Final comparison on the untouched 771-image test set
 
 | Method | Accuracy | Macro F1 | Weighted F1 | Log-loss |
@@ -70,6 +76,11 @@ CA improved accuracy by **1.94 percentage points** and macro F1 by **3.05 percen
 | Optimized ensemble | 94.03% | 94.51% | 94.03% | **0.1605** |
 
 EfficientNet-B1+CA remained the strongest method by accuracy and macro F1. The optimized ensemble did not surpass it on those metrics, but produced the best probability quality as measured by log-loss.
+
+Selected DenseNet121 results are also available as figures:
+
+- [DenseNet121 test metrics](assets/densenet_test_metrics.png)
+- [DenseNet121+CA confusion matrix](assets/densenet121_ca_confusion_matrix.png)
 
 ## Ensemble Calibration
 
@@ -93,6 +104,16 @@ The experiments report:
 - Confusion matrices and per-class classification reports
 - Grad-CAM visualizations for selected EfficientNet-B1 variants
 
+## Experiment Notebooks and Results
+
+- [`efficientnet_b0_b7_comparison.ipynb`](notebooks/efficientnet_b0_b7_comparison.ipynb): screens EfficientNet B0-B7.
+- [`efficientnet_b1_attention_ablation.ipynb`](notebooks/efficientnet_b1_attention_ablation.ipynb): compares CA, CBAM, and combined attention placements.
+- [`densenet121_coordinate_attention.ipynb`](notebooks/densenet121_coordinate_attention.ipynb): evaluates DenseNet121 with and without CA.
+- [`ensemble_evaluation.ipynb`](notebooks/ensemble_evaluation.ipynb): evaluates the weighted soft-voting ensemble.
+- [`efficientnet_b1_attention_results.csv`](results/efficientnet_b1_attention_results.csv) and [`densenet_model_comparison.csv`](results/densenet_model_comparison.csv): compact experiment summaries.
+
+Notebook outputs were cleared before publication to keep the repository lightweight. The reported metrics are preserved in the result tables and CSV files.
+
 ## Repository Structure
 
 ```text
@@ -104,9 +125,9 @@ The experiments report:
 │   └── README.md
 ├── models/
 │   └── README.md
-├── notebooks/        # Experiment notebooks (added separately)
-├── assets/           # Figures, diagrams, and selected results
-└── reports/          # Final academic report
+├── notebooks/        # Sanitized experiment notebooks
+├── results/          # Compact metric tables
+└── assets/           # Selected figures and confusion matrices
 ```
 
 Large datasets, cached predictions, ZIP archives, and trained checkpoints are intentionally excluded from Git history.
