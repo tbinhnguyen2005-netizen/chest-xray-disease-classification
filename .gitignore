@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.key
+
+# Datasets and generated artifacts
+data/raw/
+data/processed/
+checkpoints/
+predictions/
+outputs/
+results/
+
+# Large model/cache files
+*.pth
+*.pt
+*.ckpt
+*.joblib
+*.pkl
+*.npz
+*.npy
+*.zip
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
